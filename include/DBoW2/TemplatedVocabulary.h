@@ -1538,7 +1538,6 @@ void TemplatedVocabulary<TDescriptor, F>::loadFromBinaryFile(const std::string &
     m_words.reserve(pow((double)m_k, (double)m_L + 1));
 
     int nid = 0;
-    int wid = 0;
     for (auto & node : m_nodes)
     {
         vocabulary_bin.read((char*)&node.id, sizeof(node.id));
