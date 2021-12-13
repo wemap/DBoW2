@@ -1538,6 +1538,7 @@ void TemplatedVocabulary<TDescriptor, F>::loadFromBinaryFile(const std::string &
     m_words.reserve(pow((double)m_k, (double)m_L + 1));
 
     int nid = 0;
+    auto m_descriptors = cv::Mat(vec_size, 32, CV_8UC1);
     for (auto & node : m_nodes)
     {
         vocabulary_bin.read((char*)&node.id, sizeof(node.id));
@@ -1546,7 +1547,7 @@ void TemplatedVocabulary<TDescriptor, F>::loadFromBinaryFile(const std::string &
         vocabulary_bin.read((char*)&node.word_id, sizeof(node.word_id));
         if (nid > 0)
         {
-            node.descriptor.create(1, 32, CV_8UC1);
+            node.descriptor = m_descriptors.row(nid);
             vocabulary_bin.read((char*)node.descriptor.ptr(), 32);
         }
         vec_size = 0;
